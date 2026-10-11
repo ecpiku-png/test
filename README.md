@@ -2,6 +2,12 @@
 
 Aplikacja do analizy wyników przedstawicieli handlowych działająca w przeglądarce. Logika, importy, konta demonstracyjne i zapis danych są napisane w JavaScript. Nie wymaga Pythona, SQLite, backendu ani pobierania bibliotek z Internetu.
 
+## Podgląd aplikacji
+
+Dashboard z wykresami trendu sprzedaży, udziałem kategorii i wynikami przedstawicieli. Zrzut pokazuje dane demonstracyjne.
+
+![Dashboard SalesDesk z wykresami](docs/dashboard.png)
+
 ## Uruchomienie
 
 Najprościej otworzyć **`salesdesk.html`** w aktualnej przeglądarce. Ten plik zawiera cały HTML, CSS i JavaScript. Alternatywnie można otworzyć `web/index.html` — wraz z pozostałymi plikami katalogu `web`.
