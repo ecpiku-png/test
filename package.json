@@ -1,0 +1,15 @@
+{
+  "name": "salesdesk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Analiza wyników sprzedaży w HTML, CSS i JavaScript",
+  "scripts": {
+    "start": "node static-server.cjs",
+    "test": "node --test tests/store.test.cjs",
+    "test:browser": "node tests/browser.cjs",
+    "build": "node build-standalone.cjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

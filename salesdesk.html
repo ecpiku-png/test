@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="pl">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f6fa"><title>SalesDesk — wyniki sprzedaży</title><style>
+:root{--bg:#f5f6fa;--surface:#fff;--ink:#25273b;--muted:#85889c;--line:#eceef4;--purple:#7260df;--purple-soft:#efecfc;--green:#288566;--red:#be626b;--shadow:0 3px 16px #28214804}*{box-sizing:border-box}body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);font-size:14px;line-height:1.5}button,input,select{font:inherit}button,a,input,select{ -webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}a{color:inherit;text-decoration:none}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #aa9df1;outline-offset:3px}[hidden]{display:none!important}.sidebar{width:248px;background:white;border-right:1px solid var(--line);position:fixed;inset:0 auto 0 0;padding:32px 21px 16px;display:flex;flex-direction:column;z-index:20}.brand{display:flex;align-items:center;gap:8px;font-size:25px;font-weight:760;letter-spacing:-1.1px}.brand-icon{display:grid;place-items:center;background:var(--purple);color:white;border-radius:10px;width:34px;height:34px;font-size:27px;font-weight:500;margin-right:2px}.brand-dot{color:var(--purple);margin-left:-8px}.workspace{display:flex;gap:10px;align-items:center;margin:33px 0 30px;padding:12px 10px;border:1px solid var(--line);border-radius:9px;font-size:12px}.workspace-avatar{width:31px;height:31px;background:#f0edf9;color:#75639c;font-weight:700;border-radius:7px;display:grid;place-items:center}.workspace strong,.workspace small{display:block}.workspace small{font-size:10px;color:var(--muted);margin-top:2px}.workspace-chevron{margin-left:auto;color:var(--muted)}.nav-label{font-size:10px;font-weight:600;color:#a2a5b4;letter-spacing:1.3px;margin:0 12px 12px}nav{display:flex;flex-direction:column;gap:6px}.nav-link{display:flex;align-items:center;padding:12px 13px;border-radius:7px;color:#74788d;font-size:13px;font-weight:500;gap:11px}.nav-link svg{width:19px;height:19px}.nav-link.active{background:var(--purple-soft);color:var(--purple)}.nav-link.active:after{content:'';width:6px;height:6px;border-radius:50%;background:var(--purple);margin-left:auto}.nav-link:hover{background:#f5f3fc}.sidebar-bottom{margin-top:auto;padding-top:28px}.help-card{background:linear-gradient(120deg,#f5f3ff,#faf9ff);padding:16px;border:1px solid #efecfa;border-radius:10px;margin-bottom:20px}.help-icon{color:var(--purple);font-size:27px;display:block;margin-bottom:8px}.help-card strong{font-size:11px}.help-card p{font-size:11px;color:var(--muted);line-height:1.7;margin:6px 0 0}.user-button{border:0;background:transparent;border-top:1px solid var(--line);padding:18px 0 0;display:flex;align-items:center;text-align:left;gap:10px;width:100%}.avatar,.top-avatar{width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#eee9df;color:#8a7960;font-weight:600;font-size:11px;flex-shrink:0}.user-button strong{font-size:11px;display:block}.user-button small{font-size:10px;color:var(--muted)}.logout-icon{margin-left:auto;color:#9295a5;font-size:20px}.main-shell{margin-left:248px}.topbar{height:79px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 38px}.breadcrumb{font-size:12px;color:var(--muted)}.breadcrumb span{margin:0 13px;color:#c4c6d1}.breadcrumb strong{color:#626579;font-weight:500}.topbar-right{display:flex;align-items:center;gap:23px}.demo-badge{font-size:11px;color:#7c8091}.demo-badge i{width:6px;height:6px;display:inline-block;background:#9d91d8;border-radius:50%;margin-right:6px}.top-avatar{width:32px;height:32px}main{max-width:1600px;margin:0 auto;padding:33px 38px 22px}.page-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:24px}.eyebrow{font-size:10px;font-weight:650;letter-spacing:1.4px;color:var(--purple);margin-bottom:7px}.page-heading h1{font-size:27px;font-weight:650;letter-spacing:-.9px;margin:0 0 6px}.page-heading p{font-size:12px;color:var(--muted);margin:0}.heading-actions{display:flex;gap:10px}.primary,.secondary{border-radius:7px;padding:10px 15px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:550;white-space:nowrap}.primary{border:1px solid var(--purple);background:var(--purple);color:#fff}.primary:hover{background:#6150c9}.secondary{border:1px solid #e0e3ec;background:#fff;color:#606479}.secondary:hover{background:#faf9fe}.primary svg,.secondary svg{width:15px;height:15px}.filters{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:22px}.filter-wrap{position:relative}.filter-wrap svg{width:15px;height:15px;position:absolute;left:12px;top:12px;color:#9093a6;pointer-events:none}.filters select,.search-input{background:#fff;border:1px solid #e3e5ed;color:#565b71;border-radius:7px;height:39px;padding:0 33px 0 12px;font-size:12px}.filter-wrap select{padding-left:36px}.filter-reset{border:0;background:none;color:var(--purple);font-size:11px}.updated{margin-left:auto;display:flex;gap:6px;align-items:center;font-size:10px;color:#989bad}.updated i{height:5px;width:5px;background:#73a78f;border-radius:50%}.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px;margin-bottom:23px}.card{border:1px solid var(--line);background:#fff;border-radius:11px;box-shadow:var(--shadow)}.kpi{padding:19px 21px;position:relative;overflow:hidden}.kpi-title{font-size:11px;color:#7a7e93;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}.kpi-icon{background:#f5f3fc;color:#9c90d0;padding:6px;border-radius:7px;display:flex}.kpi-icon svg{height:15px;width:15px}.kpi-value{font-size:27px;font-weight:650;letter-spacing:-1px;line-height:1.2;white-space:nowrap}.kpi-value small{font-size:13px;letter-spacing:0;color:#9b9dae;font-weight:400}.kpi-note{margin-top:13px;font-size:10px;color:#9397a8;display:flex;align-items:center;gap:6px;flex-wrap:wrap}.trend-badge{font-size:10px;font-weight:600;color:var(--green);background:#eaf6ef;padding:2px 6px;border-radius:4px}.trend-badge.negative{color:var(--red);background:#faeef0}.progress-track{background:#f0edf8;height:4px;border-radius:5px;margin-top:13px;overflow:hidden}.progress-track span{background:var(--purple);display:block;height:100%;border-radius:5px}.analysis-grid{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(270px,1fr);gap:22px;margin-bottom:23px}.card-header{display:flex;justify-content:space-between;align-items:center;padding:21px 23px 0;gap:12px}.card-header h2{font-size:14px;font-weight:620;margin:0}.card-header p{font-size:10px;color:var(--muted);margin:5px 0 0}.card-header .text-link{font-size:11px;color:var(--purple)}.chart-legend{display:flex;gap:14px;font-size:10px;color:#9397a8}.chart-legend span:before{content:'';display:inline-block;width:6px;height:6px;background:var(--purple);border-radius:50%;margin-right:6px}.chart-legend span:nth-child(2):before{background:#cfc8ef}.chart{padding:23px 17px 10px 15px}.chart svg{width:100%;height:240px;overflow:visible}.chart text{font-family:inherit;font-size:10px;fill:#a0a4b4}.chart .gridline{stroke:#eef0f5;stroke-dasharray:4 5}.chart .previous{stroke:#cec7e8;stroke-width:2;stroke-dasharray:5 5;fill:none}.chart .current{stroke:var(--purple);stroke-width:2.8;fill:none}.chart-caption{display:flex;align-items:center;gap:7px;margin:0 23px 17px;padding-top:12px;border-top:1px solid #f2f3f7;font-size:10px;color:#9296a8}.chart-caption strong{color:#656b7d;font-weight:500}.donut-area{position:relative;width:174px;height:174px;margin:18px auto 14px}.donut-area svg{transform:rotate(-90deg);width:100%;height:100%}.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center}.donut-center strong{font-size:24px;letter-spacing:-.7px}.donut-center span{font-size:10px;color:#979aac}.category-list{padding:0 24px 19px}.category-item{display:flex;align-items:center;font-size:11px;margin:11px 0;gap:8px;color:#7a7e91}.category-dot{width:7px;height:7px;border-radius:50%}.category-item strong{margin-left:auto;font-size:11px;color:#585d74;font-weight:500}.category-item small{color:#a2a5b5;width:35px;text-align:right;font-size:10px}.table-card{overflow:hidden}.table-toolbar{display:flex;justify-content:space-between;align-items:center;padding:19px 23px;gap:15px}.table-toolbar h2{font-size:14px;margin:0;font-weight:620}.table-toolbar p{font-size:10px;color:var(--muted);margin:5px 0 0}.table-actions{display:flex;align-items:center;gap:10px}.small-pill{font-size:10px;border:1px solid var(--line);border-radius:5px;padding:5px 9px;color:#8f92a5}.table-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;text-align:left;white-space:nowrap}th{font-size:10px;color:#9397aa;background:#fafbfe;font-weight:500;padding:12px 23px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}th button{border:0;background:transparent;color:inherit;padding:0;font:inherit;text-align:left}td{padding:15px 23px;border-bottom:1px solid #f0f1f6;font-size:11px;color:#676c81}tbody tr:last-child td{border-bottom:0}tbody tr:hover{background:#fcfbff}.person{display:flex;gap:10px;align-items:center}.person .avatar{width:31px;height:31px;font-size:10px}.person strong{display:block;color:#4f546b;font-size:11px;font-weight:600}.person small{font-size:9px;color:#9b9eb0}.rank{font-size:10px;width:12px;color:#a2a5b4;margin-right:5px}.money{font-weight:600;color:#50556d}.goal-cell{min-width:110px}.goal-cell div{display:flex;align-items:center;justify-content:space-between;gap:8px}.goal-cell .progress-track{width:100%;margin-top:6px;height:3px}.goal-cell .progress-track span.good{background:#72b196}.status-pill{font-size:9px;border-radius:4px;padding:4px 7px;background:#eaf6ee;color:#428968}.status-pill.warning{background:#fff5e7;color:#b98a3e}.status-pill.muted{background:#f0f1f6;color:#8d91a4}.arrow-button{border:0;background:transparent;color:#abaec0;font-size:18px}.table-footer{display:flex;justify-content:space-between;padding:13px 23px;border-top:1px solid var(--line);font-size:10px;color:#969aac}.text-link{background:transparent;border:0;color:var(--purple);cursor:pointer;font-size:11px}.page-footer{display:flex;justify-content:space-between;padding:5px 38px 23px;font-size:9px;color:#a8abba;max-width:1600px;margin:0 auto}.insight{background:#f0edfc;border:1px solid #e5dff8;color:#73658f;display:flex;align-items:center;gap:10px;font-size:11px;padding:13px 16px;border-radius:8px;margin-bottom:21px}.insight svg{width:18px;height:18px;color:var(--purple);flex-shrink:0}.empty{padding:45px;text-align:center;color:var(--muted)}.empty strong{display:block;color:#62677b;margin-bottom:7px}.profile-hero{display:flex;align-items:center;gap:15px;margin-bottom:25px}.profile-hero .avatar{width:58px;height:58px;font-size:19px}.profile-hero h1{margin:0;font-size:24px}.profile-hero p{margin:3px 0;color:var(--muted);font-size:12px}.back-link{display:block;margin-bottom:20px}.goal-input{width:145px;padding:9px 10px;border:1px solid #e1e3ed;border-radius:6px;color:#53586e;background:#fff}.search-input{padding:0 12px;max-width:200px}.import-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:22px}.upload-card{padding:25px}.upload-zone{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1.5px dashed #cfc6ec;border-radius:10px;background:#fcfbff;padding:40px 20px;position:relative;cursor:pointer}.upload-zone:hover,.upload-zone.dragging{background:#f0ecfc}.upload-zone svg{width:38px;height:38px;color:var(--purple);margin-bottom:15px}.upload-zone strong{font-size:14px;margin-bottom:7px}.upload-zone span{font-size:11px;color:#9598ac}.upload-zone input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}.upload-zone input:focus-visible{opacity:.15}.info-card{padding:24px}.info-card h2,.upload-card h2{font-size:14px;margin:0 0 16px}.info-card p,.info-card li{font-size:12px;color:#858a9d;line-height:1.8}.info-card ul{padding-left:18px}.rep-codes{display:flex;flex-wrap:wrap;gap:6px}.rep-codes span{background:#f4f2fb;border-radius:4px;padding:5px 8px;font-size:10px;color:#766996}.mapping-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}.mapping-grid label{font-size:11px;color:#84889c}.mapping-grid select{display:block;width:100%;padding:8px;margin-top:5px;background:#fff;border:1px solid #e3e5ec;border-radius:5px}.import-summary{display:flex;gap:12px;flex-wrap:wrap;background:#f5f4fc;padding:15px;border-radius:7px;margin:18px 0;font-size:12px}.error{color:#b55666;font-size:12px;margin:10px 0}.error-list{max-height:190px;overflow:auto;background:#fff2f3;padding:12px;border-radius:7px;font-size:11px;color:#b55666}.error-list p{margin:4px 0}.checkbox-label{display:flex;align-items:center;gap:8px;margin:15px 0;font-size:12px;color:#7b7f93}.toast{position:fixed;bottom:25px;right:25px;z-index:100;background:#292c42;color:white;padding:15px 21px;border-radius:9px;box-shadow:0 10px 30px #0002;font-size:13px;max-width:calc(100vw - 50px)}.toast.error-toast{background:#a84a5a}.icon-button{border:0;background:none;color:#8c90a4}#mobileMenu{display:none}dialog{border:1px solid var(--line);border-radius:13px;padding:28px;max-width:450px;width:calc(100% - 30px);box-shadow:0 20px 70px #27233c30}dialog::backdrop{background:#20203355}dialog h2{margin:0 0 10px;font-size:20px}dialog p{color:var(--muted);font-size:13px}dialog label{display:block;margin:15px 0;font-size:12px;color:#777c90}dialog input{width:100%;margin-top:6px;padding:10px;border:1px solid #dedfec;border-radius:6px}.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}.login-screen{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}.login-brand{background:#f0edfa;padding:65px 12%;position:relative;display:flex;flex-direction:column;align-items:flex-start}.login-brand h1{font-size:48px;letter-spacing:-2px;line-height:1.2;margin:75px 0 20px;font-weight:650}.login-brand>p{font-size:15px;line-height:1.9;color:#8c849f;max-width:380px}.login-illustration{background:#fff;border:1px solid #e6dff6;padding:26px 30px;width:100%;max-width:340px;border-radius:15px;box-shadow:0 20px 45px #6650a210;transform:rotate(-3deg);margin:35px 0 60px}.login-illustration>span{font-size:12px;color:#9991a6}.login-illustration>strong{display:block;font-size:36px;letter-spacing:-1px;margin:8px 0}.login-illustration small{color:#70a48a;font-size:22px}.mini-bars{height:80px;display:flex;align-items:flex-end;gap:12px}.mini-bars i{width:24px;background:#c4b8ec;border-radius:5px 5px 0 0;height:35%}.mini-bars i:nth-child(2){height:45%}.mini-bars i:nth-child(3){height:40%}.mini-bars i:nth-child(4){height:67%}.mini-bars i:nth-child(5){height:62%}.mini-bars i:nth-child(6){height:82%;background:#9c88df}.mini-bars i:nth-child(7){height:100%;background:var(--purple)}.login-illustration p{font-size:10px;color:#a3a0b0;margin:18px 0 0}.login-footer{margin-top:auto;font-size:11px;color:#a29aac}.login-form{padding:70px 12%;display:flex;flex-direction:column;justify-content:center}.login-form h2{font-size:28px;letter-spacing:-1px;line-height:1.3;margin:6px 0 10px;max-width:320px}.login-form>p{font-size:13px;color:var(--muted);margin-bottom:30px}.login-form label{display:block;font-size:12px;color:#6b7087;margin-bottom:18px}.login-form input{display:block;width:100%;margin-top:7px;border:1px solid #e0e1ec;border-radius:7px;padding:12px;background:#fff}.wide{width:100%;padding:13px;justify-content:space-between}.demo-card{border-top:1px solid var(--line);margin-top:35px;padding-top:25px}.demo-card strong{font-size:12px}.demo-card p{font-size:11px;color:var(--muted);margin:5px 0 15px}.demo-roles{display:flex;flex-wrap:wrap;gap:6px}.demo-roles button{border:1px solid #e0dcec;background:#f6f4fc;color:#8070ad;padding:7px 9px;border-radius:5px;font-size:10px}.demo-card>small{display:block;font-size:10px;color:#a4a2b3;margin-top:12px}.notice{padding:12px 16px;background:#fff8ea;border:1px solid #f2e9cd;border-radius:8px;color:#a18c5b;font-size:11px;margin-bottom:20px}.section-gap{margin-top:23px}.loading{padding:100px;text-align:center;color:var(--muted)}.tabular{font-variant-numeric:tabular-nums}.pagination{display:flex;align-items:center;gap:12px}.pagination button{font-size:10px;padding:4px 8px}.date-input{background:#fff;border:1px solid #e3e5ed;border-radius:7px;height:39px;padding:0 10px;font-size:12px;color:#565b71}.filter-date-label{font-size:10px;color:#85889c;display:flex;align-items:center;gap:6px}
+@media(min-width:1500px){main{padding-top:40px}.kpi{padding:24px}.chart svg{height:270px}.sidebar{width:265px}.main-shell{margin-left:265px}}@media(max-width:1150px){.sidebar{width:210px;padding-left:15px;padding-right:15px}.main-shell{margin-left:210px}main{padding:26px 23px}.topbar{padding:0 23px}.kpi{padding:16px}.kpi-value{font-size:23px}.analysis-grid{grid-template-columns:1.5fr 1fr;gap:15px}.chart-legend{display:none}th,td{padding-left:16px;padding-right:16px}.updated{width:100%;margin:0}.page-footer{padding-left:23px;padding-right:23px}}@media(max-width:850px){.sidebar{transform:translateX(-100%);transition:transform .2s;width:248px;box-shadow:8px 0 40px #0001}.sidebar.open{transform:translateX(0)}.main-shell{margin-left:0}#mobileMenu{display:block}.topbar{height:64px;gap:15px}.breadcrumb{margin-right:auto}.topbar-right .demo-badge{display:none}.kpi-grid{grid-template-columns:repeat(2,1fr)}.analysis-grid{grid-template-columns:1fr 1fr}.page-heading h1{font-size:24px}.import-grid{grid-template-columns:1fr}.login-brand{padding:40px 12%}.login-brand h1{font-size:36px}.login-form{padding:40px 9%}}@media(max-width:600px){main{padding:23px 16px}.topbar{padding:0 16px}.breadcrumb{font-size:10px}.page-heading{align-items:flex-start;flex-direction:column}.heading-actions{width:100%;justify-content:flex-end}.page-heading h1{font-size:25px}.kpi-grid{gap:10px}.kpi{padding:15px 13px}.kpi-value{font-size:23px}.kpi-note{font-size:9px}.kpi-title{font-size:10px}.analysis-grid{grid-template-columns:1fr}.chart svg{height:210px}.card-header{padding:18px 18px 0}.chart-legend{display:flex}.table-toolbar{padding:17px;align-items:flex-start;flex-wrap:wrap}.table-actions{flex-wrap:wrap}.page-footer{padding:10px 16px 20px;font-size:8px}.login-screen{grid-template-columns:1fr}.login-brand{display:none}.login-form{min-height:100vh;padding:45px 9%}.filters{gap:7px}.filters select{max-width:180px}.updated{margin-top:5px}.search-input{max-width:160px}.mapping-grid{grid-template-columns:1fr}.insight{font-size:10px}.chart-legend{font-size:9px}.help-card{display:none}.donut-area{width:165px;height:165px}.category-list{padding-bottom:20px}}
+.chart-caption svg{width:14px;height:14px;flex-shrink:0}.topbar-right{flex-shrink:0}
+.brand-icon svg{width:23px;height:23px}.logout-icon svg{width:19px;height:19px}.trend-badge{white-space:nowrap}.chart-caption svg{width:14px;height:14px}dialog{max-height:calc(100vh - 40px);overflow:auto}
+.sidebar-backdrop{display:none;border:0}@media(max-width:850px){.sidebar.open~.sidebar-backdrop{display:block;position:fixed;inset:0;background:#24233935;z-index:19;width:100%;height:100%}}
+
+</style></head>
+<body>
+<div id="login" class="login-screen" hidden>
+  <div class="login-brand"><div class="brand"><span class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 18 18 5M5 5h13v13"/></svg></span>SalesDesk<span class="brand-dot">.</span></div><h1>Twoje dane.<br>Lepsze decyzje.</h1><p>Wszystko, czego potrzebujesz, aby zrozumieć wyniki sprzedaży i rozwijać swój zespół.</p><div class="login-illustration"><span>Realizacja celu</span><strong>112,4% <small>↗</small></strong><div class="mini-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p>Każdy wynik ma swoją historię.</p></div><div class="login-footer">Przestrzeń do podejmowania dobrych decyzji.</div></div>
+  <div class="login-form"><div class="eyebrow">WITAJ W SALESDESK</div><h2>Zobacz pełny obraz sprzedaży</h2><p>Zaloguj się do swojego obszaru roboczego.</p><form id="loginForm"><label>Adres e-mail<input id="email" type="email" autocomplete="username" value="dyrektor@demo.pl" required></label><label>Hasło<input id="password" type="password" autocomplete="current-password" value="Demo2026!" required></label><div id="loginError" class="error" role="alert"></div><button class="primary wide" type="submit">Zaloguj się <span>→</span></button></form><div class="demo-card"><strong>Przetestuj aplikację</strong><p>Wybierz rolę, aby sprawdzić jej możliwości.</p><div class="demo-roles"><button data-demo="dyrektor">Dyrektor</button><button data-demo="kierownik">Kierownik</button><button data-demo="anna">Przedstawiciel</button><button data-demo="admin">Administrator</button></div><small>Konta demonstracyjne · hasło: Demo2026!<br>Dane są zapisywane tylko w tej przeglądarce. Role nie zapewniają ochrony danych.</small></div></div>
+</div>
+<div id="app" hidden>
+<aside class="sidebar"><a href="#dashboard" class="brand"><span class="brand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 18 18 5M5 5h13v13"/></svg></span>SalesDesk<span class="brand-dot">.</span></a><div class="workspace"><div class="workspace-avatar">N</div><div><strong>Nova Sales</strong><small>Obszar demonstracyjny</small></div><span class="workspace-chevron">⌄</span></div><div class="nav-label">OBSZAR ROBOCZY</div><nav id="nav"></nav><div class="sidebar-bottom"><div class="help-card"><span class="help-icon">✧</span><strong>Dane, które dają kierunek</strong><p>Sprawdź postęp zespołu i zaplanuj kolejny krok.</p></div><button id="logout" class="user-button"><span id="userAvatar" class="avatar"></span><span><strong id="userName"></strong><small id="userRole"></small></span><span class="logout-icon" title="Wyloguj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 4H4v16h5M9 12h12m-5-5 5 5-5 5"/></svg></span></button></div></aside><button class="sidebar-backdrop" id="sidebarBackdrop" aria-label="Zamknij menu"></button>
+<div class="main-shell"><header class="topbar"><button id="mobileMenu" class="icon-button" aria-label="Otwórz menu" aria-expanded="false">☰</button><div class="breadcrumb">Obszar roboczy <span>/</span> <strong id="breadcrumb">Przegląd wyników</strong></div><div class="topbar-right"><span class="demo-badge"><i></i> Demo · dane lokalne</span><span class="top-avatar" id="topAvatar"></span></div></header><main id="main"></main><footer class="page-footer"><span>SalesDesk · Dane lokalne w tej przeglądarce</span><span>Wartości netto · PLN</span></footer></div>
+</div>
+<div id="toast" class="toast" role="status" hidden></div>
+<dialog id="modal"><div id="modalContent"></div></dialog>
+<script>
+'use strict';
+
+/* All data is local to this browser. Roles here model the demo workflow;
+   they are not a security boundary or server-side authentication. */
+(function (global) {
+  const DATA_KEY = 'salesdesk.browser.v1';
+  const SESSION_KEY = 'salesdesk.session.v1';
+  const CSV_FIELDS = ['id', 'date', 'rep_id', 'client', 'amount', 'currency', 'status', 'kind', 'category'];
+  const clone = value => JSON.parse(JSON.stringify(value));
+  const fail = (message, status = 400) => { const error = new Error(message); error.status = status; throw error; };
+  const todayISO = () => new Date().toLocaleDateString('sv-SE');
+  const publicUser = ({id, email, name, role, team, rep_id, active}) => ({id, email, name, role, team, rep_id, active});
+
+  function validDate(value) {
+    return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) &&
+      Number.isFinite(Date.parse(value + 'T12:00:00Z')) && new Date(value + 'T12:00:00Z').toISOString().slice(0, 10) === value;
+  }
+
+  function cents(value) {
+    const text = String(value).trim().replace(',', '.');
+    if (!/^[+-]?\d+(?:\.\d{1,2})?$/.test(text)) fail('Nieprawidłowa kwota (maks. 2 miejsca po przecinku).');
+    const negative = text.startsWith('-');
+    const [whole, fraction = ''] = text.replace(/^[+-]/, '').split('.');
+    const result = Number(whole) * 100 + Number(fraction.padEnd(2, '0'));
+    if (!Number.isSafeInteger(result) || result > 100_000_000_000) fail('Kwota nie może przekraczać 1 mld PLN.');
+    return negative ? -result : result;
+  }
+
+  function delimiterFor(text) {
+    let quoted = false, commas = 0, semicolons = 0;
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i];
+      if (char === '"') { if (quoted && text[i + 1] === '"') i++; else quoted = !quoted; }
+      else if (!quoted) {
+        if (char === '\n' || char === '\r') break;
+        if (char === ',') commas++;
+        if (char === ';') semicolons++;
+      }
+    }
+    return semicolons > commas ? ';' : ',';
+  }
+
+  function parseCSV(input) {
+    const text = String(input).replace(/^\ufeff/, '');
+    if (!text.trim()) fail('Plik jest pusty.');
+    const delimiter = delimiterFor(text);
+    const records = [];
+    let row = [], field = '', quoted = false, closed = false, line = 1, start = 1;
+    function pushField() { row.push(field); field = ''; closed = false; }
+    function pushRow() {
+      pushField();
+      if (row.some(value => value.trim())) records.push({line: start, values: row});
+      row = []; start = line + 1;
+    }
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i];
+      if (quoted) {
+        if (char === '"') {
+          if (text[i + 1] === '"') { field += '"'; i++; }
+          else { quoted = false; closed = true; }
+        } else { field += char; if (char === '\n') line++; }
+      } else if (char === '"') {
+        if (field || closed) fail(`Wiersz ${line}: nieprawidłowy cudzysłów w CSV.`);
+        quoted = true;
+      } else if (char === delimiter) pushField();
+      else if (char === '\n' || char === '\r') {
+        if (char === '\r' && text[i + 1] === '\n') i++;
+        pushRow(); line++;
+      } else if (closed && !/\s/.test(char)) fail(`Wiersz ${line}: znak po zamknięciu cudzysłowu.`);
+      else if (!closed) field += char;
+    }
+    if (quoted) fail('Niezamknięty cudzysłów w CSV.');
+    if (field || row.length || closed) pushRow();
+    if (!records.length) fail('Plik jest pusty.');
+    const headers = records.shift().values.map(value => value.trim());
+    if (headers.some(h => !h) || new Set(headers).size !== headers.length) fail('Nagłówki muszą być niepuste i unikalne.');
+    return {headers, records};
+  }
+
+  async function hashPassword(password, salt) {
+    if (!global.crypto?.subtle) fail('Ta przeglądarka nie obsługuje lokalnych kont. Otwórz aplikację z pliku lub przez localhost/HTTPS.');
+    const encoder = new TextEncoder();
+    const key = await global.crypto.subtle.importKey('raw', encoder.encode(password), 'PBKDF2', false, ['deriveBits']);
+    const bits = await global.crypto.subtle.deriveBits({name:'PBKDF2', hash:'SHA-256', salt:encoder.encode(salt), iterations:100000}, key, 256);
+    return Array.from(new Uint8Array(bits), value => value.toString(16).padStart(2, '0')).join('');
+  }
+  function salt() { return Array.from(global.crypto.getRandomValues(new Uint8Array(16)), value => value.toString(16).padStart(2, '0')).join(''); }
+
+  async function seed(today) {
+    const reps = [
+      {id:'r1',name:'Anna Kowalska',initials:'AK',team:'Północ',region:'Gdańsk',color:'#6155d9'},
+      {id:'r2',name:'Michał Nowak',initials:'MN',team:'Północ',region:'Warszawa',color:'#327c9b'},
+      {id:'r3',name:'Julia Wiśniewska',initials:'JW',team:'Północ',region:'Poznań',color:'#bc6f8c'},
+      {id:'r4',name:'Piotr Wójcik',initials:'PW',team:'Południe',region:'Kraków',color:'#c58b42'},
+      {id:'r5',name:'Karolina Zielińska',initials:'KZ',team:'Południe',region:'Wrocław',color:'#527f61'},
+      {id:'r6',name:'Tomasz Kamiński',initials:'TK',team:'Południe',region:'Katowice',color:'#67799a'}
+    ];
+    const accounts = [
+      {email:'dyrektor@demo.pl',name:'Aleksandra Mazur',role:'director',team:null,rep_id:null},
+      {email:'kierownik@demo.pl',name:'Marta Lewandowska',role:'manager',team:'Północ',rep_id:null},
+      {email:'anna@demo.pl',name:'Anna Kowalska',role:'rep',team:'Północ',rep_id:'r1'},
+      {email:'admin@demo.pl',name:'Administrator',role:'admin',team:null,rep_id:null}
+    ];
+    const users = await Promise.all(accounts.map(async (account, i) => {
+      const userSalt = salt();
+      return {...account,id:i+1,active:1,salt:userSalt,password:await hashPassword('Demo2026!',userSalt)};
+    }));
+    const sales = [], goals = [];
+    const clients = ['Nova Retail','Greenline','Atlas Group','Forma Studio','Baltic Trade','Urban Market','Vertex','Horizon Sp. z o.o.'];
+    const categories = ['Oprogramowanie','Usługi','Sprzęt'];
+    const [year,month,day] = today.split('-').map(Number);
+    for (let offset = 0; offset < 7; offset++) {
+      const d = new Date(Date.UTC(year,month-1-offset,1));
+      const prefix = d.toISOString().slice(0,7);
+      const days = new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+1,0)).getUTCDate();
+      reps.forEach((rep,ri) => {
+        goals.push({rep_id:rep.id,month:prefix,amount:(95000+ri*7000)*100});
+        for (let n=1; n<=28; n++) {
+          const saleDay=1+(n*7+ri*3)%days;
+          if (!offset && saleDay>day) continue;
+          sales.push({id:`DEMO-${prefix}-${ri}-${n}`,date:`${prefix}-${String(saleDay).padStart(2,'0')}`,rep_id:rep.id,client:clients[(n+ri)%clients.length],amount:(2400+(n*193+ri*613+offset*337)%4800)*100,currency:'PLN',status:'approved',kind:'sale',category:categories[(n+ri)%3],team:rep.team,region:rep.region});
+        }
+      });
+    }
+    return {version:1,reps,users,sales,goals,audit:[],updated:'Dane demonstracyjne'};
+  }
+
+  function validateDatabase(data) {
+    if (!data || data.version !== 1 || !['reps','users','sales','goals','audit'].every(key => Array.isArray(data[key]))) fail('Nieprawidłowa kopia danych SalesDesk.');
+    const ids = new Set(data.reps.map(r=>r.id));
+    if (!ids.size || ids.size !== data.reps.length || !data.reps.every(r=>typeof r.id==='string' && ['name','initials','team','region','color'].every(k=>typeof r[k]==='string') && /^#[a-f0-9]{6}$/i.test(r.color))) fail('Nieprawidłowe dane przedstawicieli.');
+    if (new Set(data.sales.map(s=>s.id)).size !== data.sales.length || !data.sales.every(s=>typeof s.id==='string' && s.id.length>0 && validDate(s.date) && ids.has(s.rep_id) && Number.isSafeInteger(s.amount) && Math.abs(s.amount)<=100_000_000_000 && ['client','category','team','region'].every(k=>typeof s[k]==='string') && s.currency==='PLN' && ['approved','pending','cancelled'].includes(s.status) && ['sale','return','correction'].includes(s.kind) && !(s.kind==='sale'&&s.amount<0) && !(s.kind==='return'&&s.amount>0))) fail('Nieprawidłowe dane sprzedaży.');
+    if (!data.goals.every(g=>ids.has(g.rep_id) && /^\d{4}-\d{2}$/.test(g.month) && validDate(g.month+'-01') && Number.isSafeInteger(g.amount) && g.amount>0 && g.amount<=100_000_000_000) || new Set(data.goals.map(g=>g.rep_id+':'+g.month)).size !== data.goals.length) fail('Nieprawidłowe cele.');
+    const userIds = new Set(data.users.map(u=>u.id));
+    if (userIds.size !== data.users.length || new Set(data.users.map(u=>u.email)).size !== data.users.length || !data.users.every(u=>Number.isSafeInteger(u.id) && u.id>0 && typeof u.name==='string' && typeof u.email==='string' && ['admin','director','manager','rep'].includes(u.role) && [0,1].includes(u.active) && typeof u.salt==='string' && /^[a-f0-9]{64}$/.test(u.password) && (u.role!=='rep'||ids.has(u.rep_id)) && (u.role!=='manager'||data.reps.some(r=>r.team===u.team))) || !data.users.some(u=>u.role==='admin'&&u.active)) fail('Nieprawidłowe konta lub brak aktywnego administratora.');
+    if (!data.audit.every(a=>Number.isSafeInteger(a.id) && typeof a.at==='string' && typeof a.action==='string' && typeof a.detail==='string' && userIds.has(a.user_id)) || typeof data.updated!=='string') fail('Nieprawidłowa historia operacji.');
+    return data;
+  }
+
+  function createStore({storage, session, today=todayISO} = {}) {
+    let queue = Promise.resolve();
+    const write = data => {
+      try { storage.setItem(DATA_KEY,JSON.stringify(data)); }
+      catch { fail('Nie udało się zapisać danych. Pamięć przeglądarki jest pełna lub zablokowana. Wyeksportuj kopię danych.',507); }
+    };
+    const read = () => {
+      try {
+        const raw=storage.getItem(DATA_KEY);
+        if (!raw) return null;
+        return validateDatabase(JSON.parse(raw));
+      } catch (error) {
+        if (error.status) throw error;
+        fail('Nie można odczytać danych przeglądarki. Nie zostały nadpisane.',500);
+      }
+    };
+    const ready = (async()=>{if (!read()) write(await seed(today()));})();
+    ready.catch(()=>{});
+    function audit(data,user,action,detail) {
+      data.audit.push({id:(data.audit.at(-1)?.id||0)+1,user_id:user.id,name:user.name,at:new Date().toISOString().replace('T',' ').slice(0,19),action,detail});
+    }
+    function repsFor(data,user) { return data.reps.filter(r=>user.role==='rep'?r.id===user.rep_id:user.role==='manager'?r.team===user.team:true); }
+    function authorize(user, roles) { if (!roles.includes(user.role)) fail('Ta operacja nie jest dostępna dla wybranej roli.',403); }
+    function salesFor(data,user,params) {
+      const ids=new Set(repsFor(data,user).map(r=>r.id));
+      return data.sales.filter(s=>ids.has(s.rep_id) && (!params.get('from')||s.date>=params.get('from')) && (!params.get('to')||s.date<=params.get('to')) && ['rep','team','region','category'].every(key=>!params.get(key)||s[key==='rep'?'rep_id':key]===params.get(key))).sort((a,b)=>b.date.localeCompare(a.date)||a.id.localeCompare(b.id));
+    }
+    function importRows(data,body) {
+      if (new TextEncoder().encode(body.csv||'').length>4_000_000) fail('Plik przekracza 4 MB.');
+      const {headers,records}=parseCSV(body.csv||'');
+      if (records.length>10000) fail('Maksymalnie 10 000 wierszy na import.');
+      if (!records.length) fail('Plik nie zawiera transakcji.');
+      const mapping=body.mapping||Object.fromEntries(CSV_FIELDS.map(k=>[k,k]));
+      if (CSV_FIELDS.slice(0,-1).some(key=>!headers.includes(mapping[key]))) fail('Przypisz wszystkie wymagane kolumny CSV.');
+      const reps=new Map(data.reps.map(r=>[r.id,r]));
+      const existing=new Map(data.sales.map(s=>[s.id,s]));
+      const seen=new Set(),valid=[],errors=[];let duplicates=0,changes=0;
+      for (const record of records) {
+        try {
+          if (record.values.length!==headers.length) fail('Liczba kolumn nie odpowiada nagłówkom.');
+          const row=Object.fromEntries(CSV_FIELDS.map(key=>[key,(record.values[headers.indexOf(mapping[key])]||'').trim()]));
+          if (!row.id || row.id.length>100) fail('Brak identyfikatora lub identyfikator za długi.');
+          if (seen.has(row.id)) fail('Powtórzony identyfikator w pliku.');
+          seen.add(row.id);
+          if (!validDate(row.date)) fail('Nieprawidłowa data. Użyj RRRR-MM-DD.');
+          const rep=reps.get(row.rep_id);if(!rep)fail('Nieznany przedstawiciel.');
+          if(!row.client)fail('Brak klienta.');
+          if(row.client.length>200||row.category.length>200)fail('Nazwa jest za długa (maks. 200 znaków).');
+          row.amount=cents(row.amount);
+          if(row.currency!=='PLN')fail('Obsługiwana waluta to PLN.');
+          if(!['approved','pending','cancelled'].includes(row.status))fail('Status: approved, pending lub cancelled.');
+          if(!['sale','return','correction'].includes(row.kind))fail('Rodzaj: sale, return lub correction.');
+          if(row.kind==='sale'&&row.amount<0)fail('Sprzedaż nie może mieć ujemnej wartości.');
+          if(row.kind==='return'&&row.amount>0)fail('Zwrot musi mieć kwotę ujemną lub zero.');
+          const old=existing.get(row.id);
+          row.team=old?.rep_id===row.rep_id?old.team:rep.team;
+          row.region=old?.rep_id===row.rep_id?old.region:rep.region;
+          if(old){if(CSV_FIELDS.every(key=>old[key]===row[key])){duplicates++;continue;}changes++;}
+          valid.push(row);
+        }catch(error){errors.push({row:record.line,error:error.message});}
+      }
+      return {valid,errors,duplicates,changes};
+    }
+
+    async function dispatch(path,body={}) {
+      await ready;
+      const data=read();
+      const url=new URL(path,'https://salesdesk.local');
+      if (url.pathname==='/api/login') {
+        const email=String(body.email||'').trim().toLowerCase();
+        const user=data.users.find(u=>u.email===email&&u.active);
+        if(!user||await hashPassword(String(body.password||''),user.salt)!==user.password)fail('Nieprawidłowy adres e-mail lub hasło.',401);
+        audit(data,user,'login','Logowanie do lokalnej wersji demonstracyjnej');write(data);
+        session.setItem(SESSION_KEY,String(user.id));return {ok:true};
+      }
+      const user=data.users.find(u=>u.id===Number(session.getItem(SESSION_KEY))&&u.active);
+      if(!user)fail('Zaloguj się, aby kontynuować.',401);
+      switch(url.pathname) {
+        case '/api/me': return publicUser(user);
+        case '/api/logout': session.removeItem(SESSION_KEY);return {ok:true};
+        case '/api/data': {
+          const reps=repsFor(data,user);const ids=new Set(reps.map(r=>r.id));
+          return clone({reps,sales:salesFor(data,user,url.searchParams),goals:data.goals.filter(g=>ids.has(g.rep_id)),updated:data.updated,today:today()});
+        }
+        case '/api/audit':
+          authorize(user,['admin','director','manager']);
+          return clone(data.audit.filter(a=>user.role!=='manager'||a.user_id===user.id).slice(-40).reverse());
+        case '/api/goals': {
+          authorize(user,['admin','director','manager']);
+          if(!repsFor(data,user).some(r=>r.id===body.rep_id))fail('Brak dostępu do przedstawiciela.',403);
+          if(!/^\d{4}-\d{2}$/.test(body.month)||!validDate(body.month+'-01'))fail('Nieprawidłowy miesiąc.');
+          const amount=cents(body.amount);if(amount<=0)fail('Cel musi być dodatni.');
+          const old=data.goals.find(g=>g.rep_id===body.rep_id&&g.month===body.month);
+          audit(data,user,'goal',JSON.stringify({rep_id:body.rep_id,month:body.month,before:old?.amount??null,after:amount}));
+          if(old)old.amount=amount;else data.goals.push({rep_id:body.rep_id,month:body.month,amount});
+          write(data);return {ok:true};
+        }
+        case '/api/import/preview':
+        case '/api/import/commit': {
+          authorize(user,['admin']);const result=importRows(data,body);
+          if(url.pathname.endsWith('preview'))return {...result,valid:result.valid.length,preview:result.valid.slice(0,5)};
+          if(result.errors.length)fail('Popraw błędy przed zatwierdzeniem importu.');
+          if(result.changes&&body.confirm_updates!==true)fail('Potwierdź aktualizację istniejących transakcji.',409);
+          const rows=new Map(data.sales.map(s=>[s.id,s]));for(const row of result.valid)rows.set(row.id,row);
+          data.sales=Array.from(rows.values());
+          data.updated=new Date().toISOString().replace('T',' ').slice(0,19)+' UTC';
+          audit(data,user,'import',`Zaimportowano ${result.valid.length} rekordów, pominięto ${result.duplicates} duplikatów.`);
+          write(data);return {imported:result.valid.length,duplicates:result.duplicates};
+        }
+        case '/api/export': {
+          const quote=value=>'"'+String(value).replace(/"/g,'""')+'"';
+          const safe=value=>/^[=+\-@\t\r]/.test(String(value))?"'"+value:value;
+          const rows=salesFor(data,user,url.searchParams).map(s=>CSV_FIELDS.map(key=>quote(key==='amount'?(s.amount/100).toFixed(2):['id','client','category'].includes(key)?safe(s[key]):s[key])).join(','));
+          return CSV_FIELDS.join(',')+'\r\n'+rows.join('\r\n')+'\r\n';
+        }
+        case '/api/users': {
+          authorize(user,['admin']);if(!Object.keys(body).length)return data.users.map(publicUser);
+          const name=String(body.name||'').trim(),email=String(body.email||'').trim().toLowerCase(),password=String(body.password||'');
+          if(!name||name.length>100||!/^\S+@\S+\.\S+$/.test(email)||email.length>200)fail('Podaj poprawne imię i adres e-mail.');
+          if(!['admin','director','manager','rep'].includes(body.role))fail('Nieprawidłowa rola.');
+          if(password.length<10||password.length>200)fail('Hasło musi mieć od 10 do 200 znaków.');
+          if(data.users.some(u=>u.email===email))fail('Ten adres e-mail jest już zajęty.');
+          let team=null,rep_id=null;
+          if(body.role==='manager'){team=body.team;if(!data.reps.some(r=>r.team===team))fail('Wybierz zespół kierownika.');}
+          if(body.role==='rep'){const rep=data.reps.find(r=>r.id===body.rep_id);if(!rep)fail('Wybierz przedstawiciela.');rep_id=rep.id;team=rep.team;}
+          const userSalt=salt();const id=Math.max(0,...data.users.map(u=>u.id))+1;
+          data.users.push({id,name,email,role:body.role,team,rep_id,active:1,salt:userSalt,password:await hashPassword(password,userSalt)});
+          audit(data,user,'user',`Utworzono konto ${email} (${body.role})`);write(data);return {id};
+        }
+        case '/api/users/status': {
+          authorize(user,['admin']);const target=data.users.find(u=>u.id===body.id);
+          if(!target)fail('Nie znaleziono konta.');if(target.id===user.id)fail('Nie możesz wyłączyć własnego konta.');
+          target.active=body.active===true?1:0;
+          audit(data,user,'user',`${target.active?'Włączono':'Wyłączono'} konto ${target.email}`);write(data);return {ok:true};
+        }
+        case '/api/backup': authorize(user,['admin']);return JSON.stringify(data,null,2);
+        case '/api/restore': {
+          authorize(user,['admin']);if(body.confirm!==true)fail('Potwierdź zastąpienie lokalnych danych.');
+          let restored;try{restored=JSON.parse(String(body.json||'').replace(/^\ufeff/,''));}catch{fail('Nieprawidłowy plik JSON.');}
+          validateDatabase(restored);write(restored);session.removeItem(SESSION_KEY);return {ok:true};
+        }
+        default: fail('Nie znaleziono operacji.',404);
+      }
+    }
+    return {
+      request(path,body) {
+        const result=queue.then(()=>dispatch(path,body));
+        queue=result.catch(()=>{});
+        return result;
+      }
+    };
+  }
+
+  if (typeof module !== 'undefined' && module.exports) module.exports={createStore,parseCSV,cents,DATA_KEY,SESSION_KEY};
+  else {
+    global.SalesCSV={parse:parseCSV};
+    global.SalesStore=createStore({
+    storage:{getItem:key=>global.localStorage.getItem(key),setItem:(key,value)=>global.localStorage.setItem(key,value)},
+    session:{getItem:key=>global.sessionStorage.getItem(key),setItem:(key,value)=>global.sessionStorage.setItem(key,value),removeItem:key=>global.sessionStorage.removeItem(key)}
+  });
+  }
+})(globalThis);
+
+</script>
+<script>
+'use strict';
+const $ = (s, root=document) => root.querySelector(s);
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money = cents => new Intl.NumberFormat('pl-PL',{maximumFractionDigits:0}).format(cents / 100);
+const exactMoney = cents => new Intl.NumberFormat('pl-PL',{style:'currency',currency:'PLN'}).format(cents / 100);
+const num = value => new Intl.NumberFormat('pl-PL',{maximumFractionDigits:1}).format(value);
+const roles = {director:'Dyrektor sprzedaży',manager:'Kierownik sprzedaży',rep:'Przedstawiciel handlowy',admin:'Administrator'};
+const paths = {
+ dashboard:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+ team:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/><path d="M16 3a4 4 0 0 1 0 8"/>',
+ target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+ upload:'<path d="M12 16V3m-5 5 5-5 5 5M4 16v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/>',
+ download:'<path d="M12 3v13m-5-5 5 5 5-5M4 16v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/>',
+ calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/>',
+ chart:'<path d="M3 3v18h18M7 14l4-5 4 3 6-8"/>',
+ wallet:'<rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 8h18M16 12h5v5h-5z"/>',
+ bag:'<path d="M5 7h14l2 14H3L5 7Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/>',
+ history:'<path d="M3 10a9 9 0 1 1 2 8M3 3v7h7M12 7v5l3 2"/>',
+ spark:'<path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z"/>',
+ search:'<circle cx="10.5" cy="10.5" r="7.5"/><path d="m16 16 5 5"/>'
+};
+const icon = name => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]||paths.chart}</svg>`;
+const state = {user:null,data:null,page:'dashboard',month:'',team:'',region:'',rep:'',category:'',sort:'amount',direction:-1,search:'',txPage:0,period:'month',from:'',to:''};
+let importData=null, toastTimer, requestVersion=0;
+async function api(path, body){
+ try { return await SalesStore.request(path, body); }
+ catch(error){if(error.status===401&&path!=='/api/login')showLogin();throw error;}
+}
+function toast(message,error=false){const t=$('#toast');t.textContent=message;t.className='toast'+(error?' error-toast':'');t.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.hidden=true,4500);}
+function showLogin(){$('#app').hidden=true;$('#login').hidden=false;state.user=null;}
+function initials(name){return name.split(' ').slice(0,2).map(p=>p[0]).join('');}
+async function login(email,password){
+ $('#loginError').textContent='';const button=$('#loginForm button');button.disabled=true;
+ try{await api('/api/login',{email,password});await boot();}catch(e){$('#loginError').textContent=e.message;}finally{button.disabled=false;}
+}
+async function boot(){
+ try{state.user=await api('/api/me');state.data=await api('/api/data');state.month=state.data.today.slice(0,7);state.from=state.month+'-01';state.to=state.data.today;state.team='';state.region='';state.rep='';state.category='';state.search='';state.period='month';$('#login').hidden=true;$('#app').hidden=false;
+ const user=state.user;$('#userName').textContent=user.name;$('#userRole').textContent=roles[user.role];$('#userAvatar').textContent=initials(user.name);$('#topAvatar').textContent=initials(user.name);
+ const nav=[['dashboard','dashboard','Przegląd wyników'],['team','team',user.role==='rep'?'Moje wyniki':'Przedstawiciele'],['goals','target','Cele sprzedażowe']];if(user.role==='admin')nav.push(['import','upload','Import danych'],['users','team','Użytkownicy'],['backup','download','Kopie danych']);if(user.role!=='rep')nav.push(['history','history','Historia zmian']);
+ $('#nav').innerHTML=nav.map(([key,i,label])=>`<a href="#${key}" class="nav-link" data-page="${key}">${icon(i)}${label}</a>`).join('');
+ const initial=location.hash.slice(1);state.page=nav.some(n=>n[0]===initial)||initial.startsWith('profile/')?initial:'dashboard';render();
+ }catch(e){showLogin();if(!e.message.includes('Zaloguj'))toast(e.message,true);}
+}
+function monthLabel(month){return new Date(month+'-02T12:00:00').toLocaleDateString('pl-PL',{month:'long',year:'numeric'});}
+function dateLabel(value){return new Date(value+'T12:00:00').toLocaleDateString('pl-PL',{day:'2-digit',month:'short',year:'numeric'});}
+function months(){const result=[];const today=state.data.today.slice(0,7);let d=new Date(today+'-02T12:00:00');for(let i=0;i<12;i++){result.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`);d.setMonth(d.getMonth()-1);}for(const s of state.data.sales){if(!result.includes(s.date.slice(0,7)))result.push(s.date.slice(0,7));}return result.sort().reverse();}
+function range(previous=false){
+ if(state.period==='custom'){
+  if(!previous)return [state.from,state.to];
+  const a=new Date(state.from+'T12:00:00Z'),b=new Date(state.to+'T12:00:00Z');const days=Math.round((b-a)/86400000)+1;
+  return [new Date(a.getTime()-days*86400000).toISOString().slice(0,10),new Date(a.getTime()-86400000).toISOString().slice(0,10)];
+ }
+ let d=new Date(state.month+'-01T12:00:00Z');if(previous)d.setUTCMonth(d.getUTCMonth()-1);
+ const prefix=d.toISOString().slice(0,7);let last=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+1,0)).getUTCDate();
+ if(state.month===state.data.today.slice(0,7))last=Math.min(last,Number(state.data.today.slice(8)));
+ return [prefix+'-01',`${prefix}-${String(last).padStart(2,'0')}`];
+}
+function selectedReps(profileId){return state.data.reps.filter(r=>(!state.team||r.team===state.team)&&(!state.region||r.region===state.region)&&(!state.rep||r.id===state.rep)&&(!profileId||r.id===profileId));}
+function filteredSales(previous=false,profileId){const [from,to]=range(previous);const ids=new Set(selectedReps(profileId).map(r=>r.id));return state.data.sales.filter(s=>ids.has(s.rep_id)&&s.date>=from&&s.date<=to&&(!state.category||s.category===state.category)&&(!state.team||s.team===state.team)&&(!state.region||s.region===state.region));}
+function stats(sales){const approved=sales.filter(s=>s.status==='approved');const amount=approved.reduce((n,s)=>n+s.amount,0);const count=new Set(approved.filter(s=>s.kind==='sale').map(s=>s.id)).size;return{amount,count,average:count?amount/count:null};}
+function goalFor(id){return state.data.goals.find(g=>g.rep_id===id&&g.month===state.month)?.amount??null;}
+function goalAvailable(){return state.period==='month'&&!state.category;}
+function growth(current,previous){return previous>0?(current-previous)/previous*100:null;}
+function trend(value,previous){const g=growth(value,previous);return g===null?'<span>Brak podstaw do porównania</span>':`<span class="trend-badge ${g<0?'negative':''}">${g>=0?'↑':'↓'} ${g>=0?'+':''}${num(g)}%</span><span>vs poprzedni okres</span>`;}
+function heading(title,subtitle,buttons=''){return `<div class="page-heading"><div><div class="eyebrow">TWÓJ PULS SPRZEDAŻY</div><h1>${title}</h1><p>${subtitle}</p></div><div class="heading-actions">${buttons}</div></div>`;}
+function exportButton(){return `<button class="secondary" id="export">${icon('download')} Eksportuj raport</button>`;}
+function options(items,value,first){return `<option value="">${first}</option>`+items.map(i=>`<option value="${esc(i)}" ${value===i?'selected':''}>${esc(i)}</option>`).join('');}
+function filters(includeCategory=true){const reps=state.data.reps;return `<div class="filters"><div class="filter-wrap">${icon('calendar')}<select id="monthFilter" aria-label="Miesiąc">${months().map(m=>`<option value="${m}" ${m===state.month&&state.period==='month'?'selected':''}>${esc(monthLabel(m))}</option>`).join('')}<option value="custom" ${state.period==='custom'?'selected':''}>Własny zakres dat</option></select></div>${state.period==='custom'?`<label class="filter-date-label">Od <input class="date-input" id="fromFilter" type="date" value="${state.from}" max="${state.to}" required></label><label class="filter-date-label">Do <input class="date-input" id="toFilter" type="date" value="${state.to}" min="${state.from}" required></label>`:''}${state.user.role!=='rep'?`<select id="teamFilter" aria-label="Zespół">${options([...new Set(reps.map(r=>r.team))],state.team,'Wszystkie zespoły')}</select>`:''}<select id="regionFilter" aria-label="Region">${options([...new Set(reps.map(r=>r.region))],state.region,'Wszystkie regiony')}</select>${state.user.role!=='rep'?`<select id="repFilter" aria-label="Przedstawiciel"><option value="">Wszyscy przedstawiciele</option>${reps.filter(r=>(!state.team||state.team===r.team)&&(!state.region||state.region===r.region)).map(r=>`<option value="${r.id}" ${state.rep===r.id?'selected':''}>${esc(r.name)}</option>`).join('')}</select>`:''}${includeCategory?`<select id="categoryFilter" aria-label="Kategoria">${options([...new Set(state.data.sales.map(s=>s.category))].filter(Boolean),state.category,'Wszystkie kategorie')}</select>`:''}${state.team||state.region||state.rep||state.category||state.period==='custom'?'<button id="resetFilters" class="filter-reset">Wyczyść filtry</button>':''}<div class="updated"><i></i> ${state.data.updated==='Dane demonstracyjne'?'Przykładowe dane · do '+dateLabel(state.data.today):'Ostatni import: '+esc(state.data.updated)}</div></div>`;}
+function kpis(profileId){
+ const current=stats(filteredSales(false,profileId)),prev=stats(filteredSales(true,profileId));const reps=selectedReps(profileId);const goals=reps.map(r=>goalFor(r.id));const complete=goalAvailable()&&reps.length>0&&goals.every(g=>g!==null);const goal=goals.reduce((sum,g)=>sum+(g||0),0);const rate=complete?current.amount/goal*100:null;
+ return `<div class="kpi-grid tabular"><section class="card kpi"><div class="kpi-title">Sprzedaż netto<span class="kpi-icon">${icon('wallet')}</span></div><div class="kpi-value">${money(current.amount)} <small>PLN</small></div><div class="kpi-note">${trend(current.amount,prev.amount)}</div></section><section class="card kpi"><div class="kpi-title">Realizacja celu<span class="kpi-icon">${icon('target')}</span></div><div class="kpi-value">${rate===null?'—':num(rate)+'%'} <small>${rate===null?'':'/ 100%'}</small></div><div class="progress-track"><span style="width:${rate===null?0:Math.min(100,Math.max(0,rate))}%"></span></div><div class="kpi-note">${!goalAvailable()?'Cel dotyczy całego miesiąca i wszystkich kategorii':!complete?'Nie ustawiono wszystkich celów':`Cel miesięczny: ${money(goal)} PLN`}</div></section><section class="card kpi"><div class="kpi-title">Liczba transakcji<span class="kpi-icon">${icon('bag')}</span></div><div class="kpi-value">${num(current.count)} <small>transakcji</small></div><div class="kpi-note">${trend(current.count,prev.count)}</div></section><section class="card kpi"><div class="kpi-title">Średnia transakcja<span class="kpi-icon">${icon('chart')}</span></div><div class="kpi-value">${current.average===null?'—':money(current.average)} <small>PLN</small></div><div class="kpi-note">${current.average===null||prev.average===null?'Brak podstaw do porównania':trend(current.average,prev.average)}</div></section></div>`;
+}
+function chart(profileId){
+ const [from,to]=range();const duration=Math.round((new Date(to)-new Date(from))/86400000)+1;const size=6;
+ const aggregate=(sales,start)=>{const values=Array(size).fill(0);for(const s of sales){if(s.status!=='approved')continue;const day=Math.round((new Date(s.date)-new Date(start))/86400000);values[Math.min(size-1,Math.max(0,Math.floor(day/Math.max(1,duration)*size)))]+=s.amount;}return values;};
+ const curr=aggregate(filteredSales(false,profileId),from),prev=aggregate(filteredSales(true,profileId),range(true)[0]);const max=Math.max(10000,...curr,...prev);const min=Math.min(0,...curr,...prev);const span=max-min||1;const x=i=>55+i*102;const y=v=>195-(v-min)/span*155;
+ const points=arr=>arr.map((v,i)=>`${x(i)},${y(v)}`).join(' ');
+ const labels=Array.from({length:size},(_,i)=>new Date(new Date(from).getTime()+Math.floor(i*duration/size)*86400000).toLocaleDateString('pl-PL',{day:'2-digit',month:'short'}));
+ return `<section class="card"><div class="card-header"><div><h2>Trend sprzedaży</h2><p>Sprzedaż netto w kolejnych częściach okresu</p></div><div class="chart-legend"><span>Bieżący okres</span><span>Poprzedni okres</span></div></div><div class="chart"><svg viewBox="0 0 610 235" role="img" aria-label="Wykres trendu sprzedaży. Bieżące wartości: ${curr.map(money).join(', ')} PLN"><defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#9b8ce5" stop-opacity=".19"/><stop offset="100%" stop-color="#9b8ce5" stop-opacity="0"/></linearGradient></defs>${[0,.25,.5,.75,1].map(f=>{const v=min+span*f;return `<line class="gridline" x1="55" x2="575" y1="${y(v)}" y2="${y(v)}"/><text x="45" y="${y(v)+3}" text-anchor="end">${num(v/100000)}k</text>`;}).join('')}<polygon points="55,${y(0)} ${points(curr)} 565,${y(0)}" fill="url(#area)"/><polyline class="previous" points="${points(prev)}"/><polyline class="current" points="${points(curr)}"/>${curr.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3.5" fill="white" stroke="#7260df" stroke-width="2"><title>${esc(labels[i])}: ${exactMoney(v)}</title></circle><text x="${x(i)}" y="221" text-anchor="middle">${esc(labels[i])}</text>`).join('')}</svg></div><div class="chart-caption">${icon('spark')}<span>Porównanie: <strong>${dateLabel(range(true)[0])} – ${dateLabel(range(true)[1])}</strong></span></div></section>`;
+}
+function categories(profileId){const sales=filteredSales(false,profileId).filter(s=>s.status==='approved');const grouped={};for(const s of sales)grouped[s.category||'Bez kategorii']=(grouped[s.category||'Bez kategorii']||0)+s.amount;const entries=Object.entries(grouped).sort((a,b)=>b[1]-a[1]);const total=entries.reduce((n,e)=>n+e[1],0);const positive=entries.reduce((n,e)=>n+Math.max(0,e[1]),0);const colors=['#7b68d9','#b4a5eb','#ded6f7','#659899','#ccabc9'];let offset=0;
+ const segments=entries.map(([name,value],i)=>{const length=positive?Math.max(0,value)/positive*440:0;const circle=`<circle cx="90" cy="90" r="70" fill="none" stroke="${colors[i%colors.length]}" stroke-width="17" stroke-dasharray="${Math.max(0,length-3)} ${440-Math.max(0,length-3)}" stroke-dashoffset="${-offset}"/>`;offset+=length;return circle;}).join('');
+ return `<section class="card"><div class="card-header"><div><h2>Struktura sprzedaży</h2><p>Udział kategorii w wyniku</p></div><span class="small-pill">PLN</span></div><div class="donut-area"><svg viewBox="0 0 180 180" role="img" aria-label="Udział kategorii w sprzedaży"><circle cx="90" cy="90" r="70" fill="none" stroke="#f3f1f9" stroke-width="17"/>${segments}</svg><div class="donut-center"><span>Łączna sprzedaż</span><strong>${num(total/100000)} tys.</strong><span>PLN netto</span></div></div><div class="category-list">${entries.length?entries.map(([name,value],i)=>`<div class="category-item"><i class="category-dot" style="background:${colors[i%colors.length]}"></i><span>${esc(name)}</span><strong>${money(value)} zł</strong><small>${total>0?num(value/total*100)+'%':'—'}</small></div>`).join(''):'<div class="empty">Brak danych w tym okresie</div>'}</div>${entries.some(e=>e[1]<0)?'<div class="chart-caption">Wykres pokazuje dodatnie wartości; lista uwzględnia korekty.</div>':''}</section>`;
+}
+function repRows(){return selectedReps().map(r=>{const curr=stats(filteredSales().filter(s=>s.rep_id===r.id));const prev=stats(filteredSales(true).filter(s=>s.rep_id===r.id));const goal=goalAvailable()?goalFor(r.id):null;return{...r,...curr,goal,rate:goal?curr.amount/goal*100:null,growth:growth(curr.amount,prev.amount)};}).filter(r=>r.name.toLocaleLowerCase('pl').includes(state.search.toLocaleLowerCase('pl'))).sort((a,b)=>{const av=a[state.sort],bv=b[state.sort];if(av===null&&bv!==null)return 1;if(bv===null&&av!==null)return -1;return typeof av==='string'?av.localeCompare(bv,'pl')*state.direction:((av??-Infinity)-(bv??-Infinity))*state.direction;});}
+function person(r,rank=false){return `<div class="person">${rank?`<span class="rank">${rank}</span>`:''}<span class="avatar" style="background:${r.color}15;color:${r.color}">${esc(r.initials)}</span><span><strong>${esc(r.name)}</strong><small>${esc(r.region)} · ${esc(r.team)}</small></span></div>`;}
+function rateCell(r){return `<div class="goal-cell"><div><span>${r.rate===null?'—':num(r.rate)+'%'}</span><span class="status-pill ${r.rate===null?'muted':r.rate<100?'warning':''}">${r.rate===null?'Brak celu':r.rate>=100?'Cel osiągnięty':'W realizacji'}</span></div><div class="progress-track"><span class="${r.rate>=100?'good':''}" style="width:${Math.max(0,Math.min(100,r.rate||0))}%"></span></div></div>`;}
+function repTable(compact=false){const rows=repRows();const sortHead=(label,key)=>`<button data-sort="${key}">${label} ${state.sort===key?(state.direction<0?'↓':'↑'):'↕'}</button>`;return `<section class="card table-card"><div class="table-toolbar"><div><h2>${compact?'Wyniki przedstawicieli':'Twój zespół, w jednym miejscu'}</h2><p>${compact?'Każdy wynik to kolejny krok do celu.':'Porównaj wyniki i odkryj potencjał zespołu.'}</p></div><div class="table-actions">${compact?`<span class="small-pill">${rows.length} przedstawicieli</span><a href="#team" class="text-link">Zobacz wszystkich →</a>`:`<input class="search-input" id="repSearch" placeholder="Szukaj przedstawiciela…" aria-label="Szukaj przedstawiciela" value="${esc(state.search)}">`}</div></div><div class="table-scroll"><table><thead><tr><th>${sortHead('Przedstawiciel','name')}</th><th>${sortHead('Sprzedaż netto','amount')}</th><th>Cel miesięczny</th><th>${sortHead('Realizacja celu','rate')}</th><th>${sortHead('Transakcje','count')}</th><th>${sortHead('Zmiana','growth')}</th><th></th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td><a href="#profile/${r.id}">${person(r,i+1)}</a></td><td class="money">${money(r.amount)} zł</td><td>${r.goal===null?'Nie ustawiono':money(r.goal)+' zł'}</td><td>${rateCell(r)}</td><td>${r.count}</td><td>${r.growth===null?'—':`<span class="trend-badge ${r.growth<0?'negative':''}">${r.growth>=0?'↑ +':'↓ '}${num(r.growth)}%</span>`}</td><td><a href="#profile/${r.id}" class="arrow-button" aria-label="Zobacz wyniki ${esc(r.name)}">›</a></td></tr>`).join('')||'<tr><td colspan="7" class="empty">Brak przedstawicieli dla wybranych filtrów.</td></tr>'}</tbody></table></div><div class="table-footer"><span>${rows.length} przedstawicieli · ${dateLabel(range()[0])} – ${dateLabel(range()[1])}</span><span>Dane zatwierdzone · netto</span></div></section>`;}
+function dashboard(){const title=state.user.role==='rep'?'Twoja sprzedaż w liczbach':'Przegląd wyników';const current=stats(filteredSales()),previous=stats(filteredSales(true));const g=growth(current.amount,previous.amount);return heading(title,'Dobry wynik zaczyna się od dobrego wglądu. Sprawdź, jak idzie sprzedaż.',exportButton()+(state.user.role==='admin'?`<a class="primary" href="#import">${icon('upload')} Importuj dane</a>`:''))+filters()+kpis()+`<div class="analysis-grid">${chart()}${categories()}</div>`+`<div class="insight">${icon('spark')}<span>${g===null?'Wybierz okres z danymi, aby porównać postęp sprzedaży.':`Sprzedaż ${g>=0?'wzrosła':'spadła'} o <strong>${num(Math.abs(g))}%</strong> względem poprzedniego okresu. ${g>=0?'Dobry kierunek — sprawdź, co stoi za tym wynikiem.':'Sprawdź wyniki przedstawicieli, aby znaleźć obszary do wsparcia.'}`}</span></div>`+repTable(true);}
+function transactions(profileId){const list=filteredSales(false,profileId);const pageSize=12;state.txPage=Math.min(state.txPage,Math.max(0,Math.ceil(list.length/pageSize)-1));const rows=list.slice(state.txPage*pageSize,(state.txPage+1)*pageSize);const status={approved:'Zatwierdzona',pending:'Oczekująca',cancelled:'Anulowana'},kind={sale:'Sprzedaż',return:'Zwrot',correction:'Korekta'};return `<section class="card table-card section-gap"><div class="table-toolbar"><div><h2>Transakcje</h2><p>Dokumenty sprzedaży, korekty i zwroty</p></div><span class="small-pill">${list.length} rekordów</span></div><div class="table-scroll"><table><thead><tr><th>Data</th><th>Identyfikator</th><th>Klient</th><th>Kategoria</th><th>Rodzaj</th><th>Netto</th><th>Status</th></tr></thead><tbody>${rows.map(s=>`<tr><td>${dateLabel(s.date)}</td><td>${esc(s.id)}</td><td>${esc(s.client)}</td><td>${esc(s.category||'—')}</td><td>${kind[s.kind]}</td><td class="money">${exactMoney(s.amount)}</td><td><span class="status-pill ${s.status==='approved'?'':s.status==='pending'?'warning':'muted'}">${status[s.status]}</span></td></tr>`).join('')||'<tr><td colspan="7" class="empty">Brak transakcji w wybranym okresie.</td></tr>'}</tbody></table></div><div class="table-footer"><span>${list.length?state.txPage*pageSize+1:0}–${Math.min((state.txPage+1)*pageSize,list.length)} z ${list.length}</span><div class="pagination"><button class="secondary" id="prevTx" ${state.txPage===0?'disabled':''}>←</button><span>Strona ${state.txPage+1}</span><button class="secondary" id="nextTx" ${(state.txPage+1)*pageSize>=list.length?'disabled':''}>→</button></div></div></section>`;}
+function profile(id){const r=state.data.reps.find(r=>r.id===id);if(!r)return '<div class="card empty"><strong>Profil niedostępny</strong>Nie masz dostępu do tego przedstawiciela.</div>';return `<a class="text-link back-link" href="#team">← Wróć do przedstawicieli</a><div class="page-heading"><div class="profile-hero"><span class="avatar" style="background:${r.color}15;color:${r.color}">${r.initials}</span><div><h1>${esc(r.name)}</h1><p>${esc(r.region)} · Zespół ${esc(r.team)} · ${r.id}</p></div></div>${exportButton()}</div>`+filters()+kpis(id)+`<div class="analysis-grid">${chart(id)}${categories(id)}</div>`+transactions(id);}
+function goals(){const reps=selectedReps();const edit=state.user.role!=='rep';return heading('Cele sprzedażowe','Jasny kierunek dla każdego przedstawiciela. Planuj i monitoruj postęp.')+filters(false)+(state.period==='custom'?'<div class="notice">Cele dotyczą pełnych miesięcy. Wybierz miesiąc, aby zarządzać planem sprzedaży.</div>':'')+`<section class="card table-card"><div class="table-toolbar"><div><h2>Plan na ${esc(monthLabel(state.month))}</h2><p>Cele wartościowe netto w PLN. Zmiany są zapisywane w historii.</p></div></div><div class="table-scroll"><table><thead><tr><th>Przedstawiciel</th><th>Sprzedaż w miesiącu</th><th>Cel miesięczny (PLN)</th><th>Realizacja</th><th></th></tr></thead><tbody>${reps.map(r=>{const amount=stats(state.data.sales.filter(s=>s.rep_id===r.id&&s.date.startsWith(state.month))).amount;const goal=goalFor(r.id);return `<tr><td>${person(r)}</td><td class="money">${money(amount)} zł</td><td>${edit?`<input type="number" class="goal-input" data-goal="${r.id}" aria-label="Cel dla ${esc(r.name)}" value="${goal===null?'':goal/100}" min="0.01" max="1000000000" step="0.01" placeholder="Nie ustawiono" ${state.period==='custom'?'disabled':''}>`:goal===null?'Nie ustawiono':money(goal)+' zł'}</td><td>${rateCell({rate:goal?amount/goal*100:null})}</td><td>${edit?`<button class="secondary" data-save-goal="${r.id}" ${state.period==='custom'?'disabled':''}>Zapisz cel</button>`:''}</td></tr>`;}).join('')||'<tr><td colspan="5" class="empty">Brak przedstawicieli dla wybranych filtrów.</td></tr>'}</tbody></table></div></section>`;}
+function importView(){return heading('Import danych','Aktualne dane to podstawa trafnych decyzji.')+`<div class="import-grid"><section class="card upload-card"><h2>Dodaj plik ze sprzedażą</h2><label class="upload-zone" id="dropZone">${icon('upload')}<strong>Przeciągnij plik CSV tutaj</strong><span>lub kliknij, aby wybrać plik z komputera</span><span style="margin-top:12px">CSV · maks. 4 MB · do 10 000 wierszy</span><input type="file" id="csvFile" accept=".csv,text/csv" aria-label="Wybierz plik CSV"></label><div id="importStatus" role="status"></div><div id="importMapping"></div><div id="importPreview"></div></section><aside><section class="card info-card"><h2>Dobry plik, prosty import</h2><p>Po wgraniu przypisz kolumny. Sprawdzimy dane, zanim trafią do raportów.</p><ul><li>Kwoty netto w PLN, maks. 2 miejsca po przecinku.</li><li>Daty w formacie RRRR-MM-DD.</li><li>Status: approved, pending lub cancelled.</li><li>Rodzaj: sale, return lub correction.</li><li>Zwroty mają wartość ujemną.</li><li>Identyczne rekordy zostaną pominięte. Zmiany wymagają potwierdzenia.</li></ul><button id="template" class="secondary">${icon('download')} Pobierz szablon CSV</button></section><section class="card info-card section-gap"><h2>Identyfikatory przedstawicieli</h2><div class="rep-codes">${state.data.reps.map(r=>`<span><strong>${r.id}</strong> · ${esc(r.name)}</span>`).join('')}</div></section></aside></div>`;}
+function render(){
+ if(!state.data||!state.user)return;
+ const page=state.page;const titles={dashboard:'Przegląd wyników',team:'Przedstawiciele',goals:'Cele sprzedażowe',import:'Import danych',history:'Historia zmian',users:'Użytkownicy',backup:'Kopie danych'};
+ $('#breadcrumb').textContent=page.startsWith('profile/')?'Profil przedstawiciela':titles[page]||'Przegląd wyników';
+ document.querySelectorAll('.nav-link').forEach(n=>n.classList.toggle('active',n.dataset.page===page||(page.startsWith('profile/')&&n.dataset.page==='team')));
+ const main=$('#main');
+ if(page==='dashboard')main.innerHTML=dashboard();else if(page==='team')main.innerHTML=heading(state.user.role==='rep'?'Moje wyniki':'Przedstawiciele','Poznaj wyniki, które składają się na sukces zespołu.',exportButton())+filters()+repTable()+transactions();else if(page==='goals')main.innerHTML=goals();else if(page.startsWith('profile/'))main.innerHTML=profile(page.split('/')[1]);else if(page==='import'&&state.user.role==='admin'){main.innerHTML=importView();importData=null;}else if(page==='backup'&&state.user.role==='admin'){main.innerHTML=backupView();bindBackup();}else if(page==='users'&&state.user.role==='admin'){main.innerHTML=heading('Użytkownicy','Lokalne konta demonstracyjne. Role określają widoki i nie chronią danych.')+'<div class="card loading">Wczytywanie kont…</div>';loadUsers();}else if(page==='history'&&state.user.role!=='rep'){main.innerHTML=heading('Historia zmian','Przejrzysty zapis importów, celów i logowań.')+'<div class="card loading">Wczytywanie historii…</div>';loadHistory();}else{state.page='dashboard';main.innerHTML=dashboard();}
+ bind();
+}
+function bind(){
+ const change=(selector,key)=>{$(selector)?.addEventListener('change',e=>{state[key]=e.target.value;if(key==='team'||key==='region')state.rep='';state.txPage=0;render();});};
+ $('#monthFilter')?.addEventListener('change',e=>{if(e.target.value==='custom')state.period='custom';else{state.period='month';state.month=e.target.value;}state.txPage=0;render();});
+ change('#teamFilter','team');change('#regionFilter','region');change('#repFilter','rep');change('#categoryFilter','category');
+ for(const [id,key] of [['#fromFilter','from'],['#toFilter','to']])$(id)?.addEventListener('change',e=>{const value=e.target.value;if(!value)return;if(key==='from'&&value>state.to||key==='to'&&value<state.from){toast('Data początkowa musi poprzedzać końcową.',true);e.target.value=state[key];return;}state[key]=value;state.txPage=0;render();});
+ $('#resetFilters')?.addEventListener('click',()=>{state.team='';state.region='';state.rep='';state.category='';state.period='month';state.txPage=0;render();});
+ $('#export')?.addEventListener('click',async()=>{const [from,to]=range();const profileId=state.page.startsWith('profile/')?state.page.split('/')[1]:'';const params=new URLSearchParams({from,to,team:state.team,region:state.region,rep:profileId||state.rep,category:state.category});try{const csv=await api('/api/export?'+params);download('wyniki-sprzedazy.csv',csv,'text/csv');toast('Raport CSV jest pobierany.');}catch(error){toast(error.message,true);}});
+ document.querySelectorAll('[data-sort]').forEach(b=>b.addEventListener('click',()=>{state.direction=state.sort===b.dataset.sort?-state.direction:-1;state.sort=b.dataset.sort;render();}));
+ $('#repSearch')?.addEventListener('input',e=>{const position=e.target.selectionStart;state.search=e.target.value;render();$('#repSearch').focus();$('#repSearch').setSelectionRange(position,position);});
+ $('#prevTx')?.addEventListener('click',()=>{state.txPage--;render();});$('#nextTx')?.addEventListener('click',()=>{state.txPage++;render();});
+ document.querySelectorAll('[data-save-goal]').forEach(b=>b.addEventListener('click',()=>editGoal(b.dataset.saveGoal)));
+ $('#csvFile')?.addEventListener('change',e=>readFile(e.target.files[0]));
+ const zone=$('#dropZone');if(zone){zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('dragging');});zone.addEventListener('dragleave',()=>zone.classList.remove('dragging'));zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('dragging');readFile(e.dataTransfer.files[0]);});}
+ $('#template')?.addEventListener('click',()=>download('szablon-sprzedazy.csv','id,date,rep_id,client,amount,currency,status,kind,category\nNOWA-001,'+state.data.today+',r1,Przykładowy klient,1500.00,PLN,approved,sale,Usługi\n','text/csv'));
+}
+async function refresh(){const version=++requestVersion;const data=await api('/api/data');if(version===requestVersion){state.data=data;render();}}
+function editGoal(id){const input=$(`[data-goal="${id}"]`);if(!input.reportValidity()||!input.value)return toast('Wpisz dodatni cel sprzedaży.',true);const r=state.data.reps.find(r=>r.id===id);const amount=input.value;$('#modalContent').innerHTML=`<h2>Zapisz nowy cel</h2><p>${esc(r.name)} · ${esc(monthLabel(state.month))}</p><p>Nowy cel: <strong>${exactMoney(Number(amount)*100)}</strong>. Zmiana zostanie zapisana w historii.</p><div class="modal-actions"><button id="cancelModal" class="secondary">Anuluj</button><button id="confirmGoal" class="primary">Zapisz cel</button></div>`;$('#modal').showModal();$('#cancelModal').onclick=()=>$('#modal').close();$('#confirmGoal').onclick=async()=>{const b=$('#confirmGoal');b.disabled=true;try{await api('/api/goals',{rep_id:id,month:state.month,amount});$('#modal').close();await refresh();toast('Cel został zapisany.');}catch(e){toast(e.message,true);b.disabled=false;}};}
+function download(name,text,type='text/plain'){const blob=new Blob(['\ufeff'+text],{type:type+';charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+
+function SalesCSVHeaders(text){return window.SalesCSV.parse(text).headers;}
+async function readFile(file){if(!file)return;if(file.size>4_000_000)return toast('Plik przekracza 4 MB.',true);if(!file.name.toLowerCase().endsWith('.csv'))return toast('Wybierz plik w formacie CSV.',true);try{const text=await file.text();const columns=SalesCSVHeaders(text);if(!columns.length)throw new Error('Plik jest pusty.');importData={csv:text,mapping:{},name:file.name};const labels={id:'Identyfikator',date:'Data',rep_id:'Przedstawiciel',client:'Klient',amount:'Kwota netto',currency:'Waluta',status:'Status',kind:'Rodzaj',category:'Kategoria (opcjonalna)'};$('#importStatus').innerHTML=`<p class="insight" style="margin-top:20px">${esc(file.name)} · ${num(file.size/1024)} KB</p>`;$('#importPreview').innerHTML='';$('#importMapping').innerHTML='<h2 style="margin-top:22px">Przypisz kolumny</h2><div class="mapping-grid">'+Object.entries(labels).map(([key,label])=>`<label>${label}<select data-map="${key}"><option value="">${key==='category'?'Pomiń':'Wybierz kolumnę'}</option>${columns.map(col=>`<option value="${esc(col)}" ${col===key?'selected':''}>${esc(col)}</option>`).join('')}</select></label>`).join('')+'</div><button class="primary" id="validateImport">Sprawdź dane →</button>';$('#validateImport').onclick=validateImport;document.querySelectorAll('[data-map]').forEach(s=>s.onchange=()=>$('#importPreview').innerHTML='');}catch(e){toast(e.message,true);}}
+async function validateImport(){if(!importData)return;const button=$('#validateImport');button.disabled=true;document.querySelectorAll('[data-map]').forEach(s=>importData.mapping[s.dataset.map]=s.value);try{const result=await api('/api/import/preview',importData);$('#importPreview').innerHTML=`<div class="import-summary"><span><strong>${result.valid}</strong> poprawnych</span><span><strong>${result.duplicates}</strong> duplikatów</span><span><strong>${result.changes}</strong> aktualizacji</span><span><strong>${result.errors.length}</strong> błędów</span></div>${result.errors.length?'<div class="error-list">'+result.errors.map(e=>`<p>Wiersz ${e.row}: ${esc(e.error)}</p>`).join('')+'</div><button id="downloadErrors" class="secondary section-gap">Pobierz raport błędów</button>':result.valid?`<h2>Podgląd pierwszych rekordów</h2><div class="table-scroll"><table><thead><tr><th>ID</th><th>Klient</th><th>Kwota netto</th></tr></thead><tbody>${result.preview.map(s=>`<tr><td>${esc(s.id)}</td><td>${esc(s.client)}</td><td>${exactMoney(s.amount)}</td></tr>`).join('')}</tbody></table></div>${result.changes?'<label class="checkbox-label"><input id="confirmUpdates" type="checkbox">Potwierdzam nadpisanie zmienionych transakcji.</label>':''}<button class="primary section-gap" id="commitImport">Zatwierdź import (${result.valid})</button>`:'<p>Wszystkie rekordy są już w bazie. Nic nie wymaga importu.</p>'}`;$('#downloadErrors')?.addEventListener('click',()=>download('bledy-importu.txt',result.errors.map(e=>`Wiersz ${e.row}: ${e.error}`).join('\n')));$('#commitImport')?.addEventListener('click',async()=>{if(result.changes&&!$('#confirmUpdates').checked)return toast('Potwierdź aktualizację istniejących transakcji.',true);const b=$('#commitImport');b.disabled=true;try{const r=await api('/api/import/commit',{...importData,confirm_updates:!!$('#confirmUpdates')?.checked});await refresh();toast(`Zaimportowano ${r.imported} rekordów. Pominięto ${r.duplicates} duplikatów.`);}catch(e){toast(e.message,true);b.disabled=false;}});}catch(e){toast(e.message,true);}finally{button.disabled=false;}}
+async function loadHistory(){try{const rows=await api('/api/audit');if(state.page!=='history')return;const labels={login:'Logowanie',goal:'Zmiana celu',import:'Import danych',user:'Zmiana konta'};$('#main').innerHTML=heading('Historia zmian','Przejrzysty zapis importów, celów i logowań.')+`<section class="card table-card"><div class="table-scroll"><table><thead><tr><th>Data (UTC)</th><th>Użytkownik</th><th>Operacja</th><th>Szczegóły</th></tr></thead><tbody>${rows.map(r=>{let detail=r.detail;if(r.action==='goal'){try{const d=JSON.parse(detail);const rep=state.data.reps.find(r=>r.id===d.rep_id);detail=`${rep?.name||d.rep_id} · ${monthLabel(d.month)} · ${d.before===null?'Nie ustawiono':exactMoney(d.before)} → ${exactMoney(d.after)}`;}catch{}}return `<tr><td>${esc(r.at)}</td><td>${esc(r.name)}</td><td><span class="small-pill">${labels[r.action]||esc(r.action)}</span></td><td>${esc(detail)}</td></tr>`;}).join('')||'<tr><td colspan="4" class="empty">Nie ma jeszcze zmian.</td></tr>'}</tbody></table></div><div class="table-footer"><span>Ostatnie ${rows.length} zdarzeń${state.user.role==='manager'?' · wyłącznie Twoje operacje':''}</span></div></section>`;}catch(e){toast(e.message,true);}}
+$('#loginForm').addEventListener('submit',e=>{e.preventDefault();login($('#email').value,$('#password').value);});
+document.querySelectorAll('[data-demo]').forEach(b=>b.addEventListener('click',()=>login(b.dataset.demo+'@demo.pl','Demo2026!')));
+$('#logout').addEventListener('click',async()=>{try{await api('/api/logout',{});state.data=null;showLogin();}catch(e){toast(e.message,true);}});
+$('#mobileMenu').addEventListener('click',()=>{const opened=$('.sidebar').classList.toggle('open');$('#mobileMenu').setAttribute('aria-expanded',String(opened));});
+$('#sidebarBackdrop').addEventListener('click',()=>{$('.sidebar').classList.remove('open');$('#mobileMenu').setAttribute('aria-expanded','false');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('.sidebar').classList.remove('open');$('#mobileMenu').setAttribute('aria-expanded','false');}});
+window.addEventListener('hashchange',()=>{if(!state.user)return;state.page=location.hash.slice(1)||'dashboard';state.txPage=0;state.search='';$('.sidebar').classList.remove('open');$('#mobileMenu').setAttribute('aria-expanded','false');render();window.scrollTo(0,0);});
+$('#modal').addEventListener('click',e=>{if(e.target===$('#modal'))$('#modal').close();});
+boot();
+async function loadUsers(){try{const users=await api('/api/users');if(state.page!=='users')return;$('#main').innerHTML=heading('Użytkownicy','Lokalne konta demonstracyjne. Role określają widoki i nie chronią danych.','<button class="primary" id="addUser">+ Dodaj użytkownika</button>')+`<section class="card table-card"><div class="table-scroll"><table><thead><tr><th>Użytkownik</th><th>Adres e-mail</th><th>Rola</th><th>Zakres dostępu</th><th>Status</th><th></th></tr></thead><tbody>${users.map(u=>`<tr><td class="money">${esc(u.name)}</td><td>${esc(u.email)}</td><td>${roles[u.role]}</td><td>${u.role==='rep'?esc(state.data.reps.find(r=>r.id===u.rep_id)?.name||u.rep_id):u.role==='manager'?'Zespół '+esc(u.team):'Cała organizacja'}</td><td><span class="status-pill ${u.active?'':'muted'}">${u.active?'Aktywny':'Wyłączony'}</span></td><td>${u.id===state.user.id?'<span class="small-pill">Twoje konto</span>':`<button class="secondary" data-status="${u.id}" data-active="${u.active?0:1}">${u.active?'Wyłącz konto':'Włącz konto'}</button>`}</td></tr>`).join('')}</tbody></table></div></section>`;$('#addUser').onclick=addUser;document.querySelectorAll('[data-status]').forEach(b=>b.onclick=()=>{const id=Number(b.dataset.status),active=b.dataset.active==='1';const user=users.find(u=>u.id===id);$('#modalContent').innerHTML=`<h2>${active?'Włącz':'Wyłącz'} konto</h2><p>${esc(user.name)} · ${esc(user.email)}</p><p>${active?'Konto zostanie ponownie włączone w tej lokalnej wersji demonstracyjnej.':'Konto zostanie wyłączone w lokalnym widoku demo. Historia pozostanie zachowana. Role w przeglądarce nie chronią danych.'}</p><div class="modal-actions"><button id="cancelModal" class="secondary">Anuluj</button><button id="confirmUserStatus" class="primary">${active?'Włącz':'Wyłącz'} konto</button></div>`;$('#modal').showModal();$('#cancelModal').onclick=()=>$('#modal').close();$('#confirmUserStatus').onclick=async()=>{const button=$('#confirmUserStatus');button.disabled=true;try{await api('/api/users/status',{id,active});$('#modal').close();await loadUsers();toast('Status konta został zmieniony.');}catch(e){toast(e.message,true);button.disabled=false;}};});}catch(e){toast(e.message,true);}}
+function addUser(){const teams=[...new Set(state.data.reps.map(r=>r.team))];$('#modalContent').innerHTML=`<h2>Dodaj użytkownika</h2><p>Ustal rolę i zakres dostępu do wyników.</p><form id="addUserForm"><label>Imię i nazwisko<input name="name" required maxlength="100" autocomplete="name"></label><label>Adres e-mail<input name="email" type="email" required autocomplete="email"></label><label>Hasło początkowe<input name="password" type="password" required minlength="10" maxlength="200" autocomplete="new-password"></label><label>Rola<select name="role" id="newRole" class="goal-input" style="width:100%;margin-top:6px">${Object.entries(roles).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></label><label id="newTeamLabel" hidden>Zespół<select name="team" class="goal-input" style="width:100%;margin-top:6px">${teams.map(t=>`<option>${esc(t)}</option>`).join('')}</select></label><label id="newRepLabel" hidden>Przedstawiciel<select name="rep_id" class="goal-input" style="width:100%;margin-top:6px">${state.data.reps.map(r=>`<option value="${r.id}">${esc(r.name)}</option>`).join('')}</select></label><div class="error" id="userError" role="alert"></div><div class="modal-actions"><button type="button" id="cancelModal" class="secondary">Anuluj</button><button type="submit" class="primary">Utwórz konto</button></div></form>`;$('#modal').showModal();$('#cancelModal').onclick=()=>$('#modal').close();$('#newRole').onchange=e=>{$('#newTeamLabel').hidden=e.target.value!=='manager';$('#newRepLabel').hidden=e.target.value!=='rep';};$('#addUserForm').onsubmit=async e=>{e.preventDefault();const button=$('#addUserForm button[type="submit"]');button.disabled=true;try{await api('/api/users',Object.fromEntries(new FormData(e.target)));$('#modal').close();await loadUsers();toast('Konto zostało utworzone.');}catch(e){$('#userError').textContent=e.message;button.disabled=false;}};}
+function backupView(){return heading('Kopie danych','Przenieś lokalne dane lub zachowaj ich kopię.')+`<div class="import-grid"><section class="card info-card"><h2>Zapisz kopię</h2><p>Pobierz plik JSON z transakcjami, celami, historią i kontami lokalnego demo. Kopia zawiera także hashe haseł kont.</p><button class="primary" id="saveBackup">${icon('download')} Pobierz kopię danych</button></section><section class="card info-card"><h2>Odtwórz kopię</h2><p>Wybierz plik JSON wyeksportowany z tej wersji aplikacji. Odtworzenie zastąpi dane w tej przeglądarce i wyloguje bieżące konto.</p><label class="upload-zone" style="padding:20px">${icon('upload')}<strong>Wybierz kopię JSON</strong><span>Maks. 10 MB</span><input type="file" id="restoreFile" accept=".json,application/json" aria-label="Wybierz kopię danych JSON"></label></section></div><div class="notice section-gap">Dane są przechowywane w localStorage, osobno dla każdej przeglądarki i adresu aplikacji. Wyczyszczenie danych przeglądarki usuwa również dane SalesDesk. Konta i role służą do demonstracji; nie stosuj tej wersji do poufnych danych.</div>`;}
+function bindBackup(){
+ $('#saveBackup').onclick=async()=>{try{download('salesdesk-kopia-'+state.data.today+'.json',await api('/api/backup'),'application/json');toast('Kopia danych została pobrana.');}catch(error){toast(error.message,true);}};
+ $('#restoreFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;if(file.size>10_000_000)return toast('Plik przekracza 10 MB.',true);let json;try{json=await file.text();}catch{return toast('Nie udało się odczytać pliku.',true);}$('#modalContent').innerHTML=`<h2>Odtwórz dane</h2><p>Plik: ${esc(file.name)}</p><p>Ta operacja zastąpi lokalne dane. Przed kontynuowaniem zapisz aktualną kopię.</p><div class="modal-actions"><button id="cancelModal" class="secondary">Anuluj</button><button id="confirmRestore" class="primary">Zastąp dane</button></div>`;$('#modal').showModal();$('#cancelModal').onclick=()=>$('#modal').close();$('#confirmRestore').onclick=async()=>{const button=$('#confirmRestore');button.disabled=true;try{await api('/api/restore',{json,confirm:true});$('#modal').close();state.data=null;showLogin();toast('Dane odtworzono. Zaloguj się do konta z kopii.');}catch(error){toast(error.message,true);button.disabled=false;}};};
+}
+
+</script>
+</body></html>
