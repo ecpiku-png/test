@@ -7,8 +7,14 @@ const files = {'/':'index.html','/index.html':'index.html','/app.js':'app.js','/
 const types = {'.html':'text/html','.js':'text/javascript','.css':'text/css'};
 const port = Number(process.env.PORT || 3000);
 const host = process.env.HOST || '0.0.0.0';
+const basePath = (process.env.BASE_PATH || '').replace(/\/$/, '');
 const server = http.createServer((request,response)=>{
-  const file=files[new URL(request.url,'http://localhost').pathname];
+  const url=new URL(request.url,'http://localhost');
+  if(basePath && url.pathname===basePath){
+    response.writeHead(308,{'Location':basePath+'/'+url.search});response.end();return;
+  }
+  const pathname=basePath?(url.pathname.startsWith(basePath+'/')?url.pathname.slice(basePath.length):null):url.pathname;
+  const file=files[pathname];
   if (!file || !['GET','HEAD'].includes(request.method)) {response.writeHead(404,{'Content-Type':'text/plain; charset=utf-8'});response.end('Nie znaleziono.');return;}
   fs.readFile(path.join(__dirname,'web',file),(error,content)=>{
     if(error){response.writeHead(500);response.end('Nie można odczytać pliku.');return;}

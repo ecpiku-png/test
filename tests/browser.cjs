@@ -5,8 +5,9 @@ const path=require('node:path');
 const assert=require('node:assert/strict');
 const fileMode=process.env.WEB_TEST_FILE==='1';
 const port=Number(process.env.WEB_TEST_PORT||3101);
-const base=fileMode?require('node:url').pathToFileURL(path.join(__dirname,'../web/index.html')).href:'http://127.0.0.1:'+port;
-const server=fileMode?null:spawn(process.execPath,['static-server.cjs'],{cwd:path.join(__dirname,'..'),env:{...process.env,PORT:String(port),HOST:'127.0.0.1'},stdio:'ignore'});
+const basePath=(process.env.WEB_TEST_BASE_PATH||'/test').replace(/\/$/,'');
+const base=fileMode?require('node:url').pathToFileURL(path.join(__dirname,'../web/index.html')).href:'http://127.0.0.1:'+port+basePath;
+const server=fileMode?null:spawn(process.execPath,['static-server.cjs'],{cwd:path.join(__dirname,'..'),env:{...process.env,PORT:String(port),HOST:'127.0.0.1',BASE_PATH:basePath},stdio:'ignore'});
 let browser;
 function cleanup(){server?.kill();}
 
@@ -16,6 +17,7 @@ function cleanup(){server?.kill();}
  const page=await browser.newPage({viewport:{width:1440,height:1100}});
  const errors=[],requests=[];page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>requests.push(r.url()));
  await page.goto(base);
+ if(!fileMode)assert.equal(new URL(page.url()).pathname,basePath+'/','Adres repozytorium musi mieć końcowy ukośnik.');
  if(fileMode)await page.context().setOffline(true);
  await page.locator('[data-demo="dyrektor"]').click();
  await page.locator('.kpi-grid').waitFor();

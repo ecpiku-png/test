@@ -14,10 +14,26 @@ npm start
 
 Serwer Node.js udostępnia wyłącznie pliki na porcie 3000. Nie obsługuje API i nie przechowuje danych aplikacji. Można też udostępnić katalog `web` przez dowolny hosting statyczny z HTTPS. `PORT` i `HOST` zmieniają adres serwera. Node.js 20+ jest potrzebny tylko do serwera, budowania pojedynczego pliku i testów; aplikacja w przeglądarce go nie wymaga. Nie trzeba wykonywać `npm install`.
 
+## GitHub Pages
+
+Repozytorium zawiera workflow `.github/workflows/pages.yml`. Publikuje katalog `web` po każdym pushu na `main`, po pomyślnym przejściu testów. Aplikacja używa względnych ścieżek i działa również pod prefiksem repozytorium `/test/`. Nie wymaga serwera Node.js na GitHub Pages.
+
+Pierwsze uruchomienie:
+
+1. Otwórz **Settings → Pages** w repozytorium.
+2. W **Build and deployment → Source** wybierz **GitHub Actions**.
+3. W **Actions → Deploy SalesDesk to GitHub Pages** wybierz **Run workflow**, jeśli konfiguracja została włączona po ostatnim pushu.
+4. Po udanym wdrożeniu strona będzie dostępna pod adresem **https://ecpiku-png.github.io/test/**.
+
+Alternatywnie można wybrać **Deploy from a branch**, gałąź `main` i katalog `/ (root)`. W głównym katalogu jest wygenerowany `index.html` zawierający całą aplikację oraz `.nojekyll`. Przy tej metodzie workflow Actions nie jest potrzebny i można go wyłączyć, aby nie uruchamiać drugiej ścieżki publikacji.
+
+Po zmianach w źródłach wykonaj `npm run build` i dodaj wygenerowane `index.html` oraz `salesdesk.html` do commita. Wersja lokalna i wersja GitHub Pages mają oddzielne dane przeglądarki; dane można przenieść za pomocą kopii JSON.
+
 ## Pliki
 
 | Plik | Zawartość |
 | --- | --- |
+| `index.html` | Strona startowa do publikacji z głównego katalogu repozytorium |
 | `salesdesk.html` | Samodzielna aplikacja, wygodna do skopiowania i otwarcia |
 | `web/index.html` | Struktura interfejsu |
 | `web/style.css` | Responsywny wygląd |
@@ -111,8 +127,8 @@ Test interfejsu (wymaga dostępnych Playwright i Chromium):
 npm run test:browser
 ```
 
-Uruchamia osobny serwer statyczny na porcie 3101 i nowy profil przeglądarki. Sprawdza wszystkie widoki, odświeżenie danych, import, eksport, kopie JSON, działanie offline po załadowaniu, samodzielny HTML i wersję mobilną. `CHROMIUM_PATH` wskazuje przeglądarkę, a `WEB_TEST_PORT` zmienia port. Bezpośredni test lokalnego pliku można uruchomić z `WEB_TEST_FILE=1`, o ile polityka przeglądarki dopuszcza `file://`; przeglądarka w tym środowisku blokuje ten schemat.
+Uruchamia osobny serwer statyczny na porcie 3101 pod prefiksem `/test/`, odpowiadającym GitHub Pages, i nowy profil przeglądarki. Sprawdza wszystkie widoki, odświeżenie danych, import, eksport, kopie JSON, działanie offline po załadowaniu, samodzielny HTML i wersję mobilną. `CHROMIUM_PATH` wskazuje przeglądarkę, a `WEB_TEST_PORT` zmienia port. Bezpośredni test lokalnego pliku można uruchomić z `WEB_TEST_FILE=1`, o ile polityka przeglądarki dopuszcza `file://`; przeglądarka w tym środowisku blokuje ten schemat.
 
 ## Zakres
 
-To samodzielne demo aplikacji, bez produkcyjnych uprawnień, wspólnej bazy, CRM/ERP, wielu walut, SSO i resetowania haseł. Nie wykonano testów obciążenia dla 100 tys. rekordów. Publikacja nie została wykonana.
+To samodzielne demo aplikacji, bez produkcyjnych uprawnień, wspólnej bazy, CRM/ERP, wielu walut, SSO i resetowania haseł. Nie wykonano testów obciążenia dla 100 tys. rekordów. Konfiguracja publikacji jest przygotowana; stan wdrożenia sprawdzisz w zakładce Actions.

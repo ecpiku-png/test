@@ -9,4 +9,5 @@ const html=read('index.html')
  .replace('<script src="./store.js" defer></script>',()=>script(read('store.js')))
  .replace('<script src="./app.js" defer></script>',()=>script(read('app.js')));
 fs.writeFileSync(path.join(root,'salesdesk.html'),html);
-console.log('Zapisano samodzielny plik salesdesk.html');
+fs.writeFileSync(path.join(root,'index.html'),html);
+console.log('Zapisano salesdesk.html i stronę startową index.html dla GitHub Pages');
